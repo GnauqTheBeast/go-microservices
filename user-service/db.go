@@ -9,7 +9,7 @@ var db *sql.DB
 
 func InitDB() error {
 	var err error
-	db, err = sql.Open("postgres", "postgres://postgres:postgres@localhost:5432/trekking_app?sslmode=disable")
+	db, err = sql.Open("postgres", "postgres://postgres:postgres@localhost:5433/user_db?sslmode=disable")
 	if err != nil {
 		return err
 	}

@@ -19,7 +19,7 @@ func TestRegister(t *testing.T) {
 	client := pb.NewAuthServiceClient(conn)
 
 	req := &pb.RegisterRequest{
-		Email:    "quang@example.com",
+		Email:    "quang314@example.com",
 		Password: "secure123",
 	}
 

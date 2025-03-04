@@ -20,8 +20,16 @@ func main() {
 		fmt.Printf("lis err: %v\n", err)
 	}
 
+	authAddr := "localhost:50051"
+
 	s := grpc.NewServer()
-	pb.RegisterUserServiceServer(s, &UserServiceServer{})
+
+	userServiceServer, err := NewUserServiceServer(authAddr)
+	if err != nil {
+		fmt.Printf("NewUserServiceServer err: %v\n", err)
+	}
+
+	pb.RegisterUserServiceServer(s, userServiceServer)
 
 	fmt.Println("user-service served at port 50052.")
 	if err := s.Serve(lis); err != nil {
