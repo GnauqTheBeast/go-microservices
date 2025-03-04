@@ -5,7 +5,7 @@ import (
 	"net"
 
 	"google.golang.org/grpc"
-	pb "user-service/proto"
+	"user-service/proto/pb"
 )
 
 func main() {

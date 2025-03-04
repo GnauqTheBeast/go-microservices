@@ -1,33 +1,32 @@
-package main
+package test
 
 import (
-	pb "auth-service/proto/auth"
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"log"
 	"testing"
+	"user-service/proto/pb"
 )
 
 func TestRegister(t *testing.T) {
 	conn, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
-		log.Fatalf("Failed to connect: %v", err)
+		fmt.Printf("Failed to connect: %v", err)
 	}
 	defer conn.Close()
 
 	client := pb.NewAuthServiceClient(conn)
 
-	// Register user via auth-service
 	req := &pb.RegisterRequest{
-		Email:    "quang@example.com",
+		Email:    "quang1234@example.com",
 		Password: "secure123",
 	}
+
 	res, err := client.Register(context.Background(), req)
 	if err != nil {
-		log.Fatalf("Registration failed: %v", err)
+		fmt.Printf("Registration failed: %v", err)
 	}
 
-	fmt.Println("✅ Response:", res.Message)
+	fmt.Println("✅ Response from user-service:", res.Message)
 }

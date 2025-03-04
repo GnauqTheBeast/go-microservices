@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 
-	pb "auth-service/proto/auth"
+	"auth-service/proto/pb"
 
 	"golang.org/x/crypto/bcrypt"
 )

@@ -4,11 +4,12 @@ import (
 	"context"
 	"log"
 
-	pb "user-service/proto/user"
+	"user-service/proto/pb"
 )
 
 type UserServiceServer struct {
 	pb.UnimplementedUserServiceServer
+	authClient pb.AuthServiceClient
 }
 
 func (s *UserServiceServer) GetUser(ctx context.Context, req *pb.UserRequest) (*pb.UserResponse, error) {
