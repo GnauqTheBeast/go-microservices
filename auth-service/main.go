@@ -15,13 +15,13 @@ func main() {
 		fmt.Println(err)
 	}
 
+	s := grpc.NewServer()
+	pb.RegisterAuthServiceServer(s, &AuthServiceServer{})
+
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		fmt.Println(err)
 	}
-
-	s := grpc.NewServer()
-	pb.RegisterAuthServiceServer(s, &AuthServiceServer{})
 
 	fmt.Println("auth service listening on port 50051")
 	if err := s.Serve(lis); err != nil {

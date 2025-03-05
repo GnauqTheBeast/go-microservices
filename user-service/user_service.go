@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"log"
 
-	"user-service/proto/pb"
+	pb "user-service/proto/pb"
 )
 
 type UserServiceServer struct {
@@ -37,20 +37,12 @@ func (s *UserServiceServer) GetUser(ctx context.Context, req *pb.UserRequest) (*
 	return &pb.UserResponse{Email: email, Name: name}, nil
 }
 
-// Login từ UserService (proxy đến AuthService)
 func (s *UserServiceServer) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResponse, error) {
-	authReq := &pb.LoginRequest{
-		Email:    req.Email,
-		Password: req.Password,
-	}
-
-	// Gọi AuthService.Login()
-	authRes, err := s.authClient.Login(ctx, authReq)
+	authRes, err := s.authClient.Login(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("auth login failed: %v", err)
 	}
 
-	// Trả về kết quả từ AuthService
 	return &pb.LoginResponse{
 		Token: authRes.Token,
 	}, nil
