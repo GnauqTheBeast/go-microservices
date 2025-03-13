@@ -1,0 +1,16 @@
+kafka:
+  brokers:
+    - localhost:9092
+  consumerGroup: notification-group
+  topics:
+    userEvents: user-events
+    notifications: notifications
+  consumer:
+    initialOffset: oldest
+    strategy: roundrobin
+  producer:
+    returnSuccesses: true
+    returnErrors: true
+
+http:
+  port: :8080 
